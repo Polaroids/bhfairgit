@@ -1,0 +1,41 @@
+{
+  "pages":[
+    "pages/navigation/navigation",
+    "pages/mystore/mystore",
+    "pages/chatroom/chatroom",
+    "pages/item/item",
+    "pages/item_list/item_list",
+    "pages/postproduct/postproduct",
+    "pages/myproduct/myproduct",
+    "pages/person/person",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#20c9f9",
+    "navigationBarTitleText": "北航物品交易市场",
+    "navigationBarTextStyle": "black"
+  },
+  "plugins":{
+    "sdkPlugin":{
+      "version":"1.7.0",
+      "provider":"wxc6b86e382a1e3294"
+    }
+  },
+  "tabBar": {
+    "list": [
+    {
+      "pagePath": "pages/navigation/navigation",
+      "text": "导航",
+      "iconPath": "/images/nav.png",
+      "selectedIconPath": "/images/selected_nav.png"
+    },
+    {
+      "pagePath": "pages/person/person",
+      "text": "个人",
+      "iconPath": "/images/person.png",
+      "selectedIconPath": "/images/selected_person.png"
+    }],
+    "selectedColor": "#20c9f9"
+  }
+}

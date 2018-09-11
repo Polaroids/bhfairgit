@@ -1,0 +1,89 @@
+/* pages/item_list/item_list.wxss */
+page{
+  height: 100%;
+}
+.container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+#title{
+  height: 5%;
+  width: 100%;
+  text-align: center;
+}
+#item_list{
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.item{
+  width: 100%;
+  height: 150px;
+  padding:0;
+  border-top:1rpx solid gainsboro;
+}
+.item_box{
+  height:100%;
+  width:100%;
+  display:flex;
+  flex-direction:row;
+}
+.img{
+  height:100%;
+  width:40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.info{
+  height:100%;
+  width:60%;
+  display: flex;
+  flex-direction:column;
+}
+.header{
+  height: 20%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.item_title{
+  width:100%;
+  padding-left: 10rpx;
+  line-height:35px;
+  text-align: left;
+  font-weight: 500;
+  font-size:35rpx;
+}
+.like{
+  height: 100%;
+  width: 70rpx;
+  margin-right:10rpx;
+}
+.dsp{
+ width: 100%;
+ height:55%;
+ text-align: left;
+ padding-left:10px;
+ font-size:15px;
+ color: black;
+}
+.tab{
+  color:rgb(252, 136, 58);
+  font-size: 30rpx;
+}
+.price{
+  width: 100%;
+  height:25%;
+  text-align: right;
+  line-height: 35px;
+  color: #ff4343;
+  font-size:30px;
+}

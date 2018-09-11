@@ -1,0 +1,124 @@
+/**index.wxss**/
+page{
+  height: 100%;
+}
+.container{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top:0; 
+  position: relative;
+}
+.userinfo{
+  height: 40%;
+  width:100%;
+  background-color: #20c9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.avatar{
+   height: 250rpx;
+   width:250rpx;
+}
+.avatar image{
+  height: 100%;
+  width:100%;
+  border-radius: 50%;
+}
+.avatar button{
+  height: 100%;
+  padding : 0;
+  width:100%;
+  border-radius: 50%;
+}
+.nick{
+   height:20%;
+   width:50%;
+   padding-top: 15px;
+   color: white;
+   text-align: center;
+}
+.functions{
+  display: flex;
+  height: 60%;
+  width:100%;
+  margin-top:20rpx;
+}
+#mystore{
+  width:200rpx;
+  height:200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+}
+#mycode{
+   width:200rpx;
+  height:200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+}
+#myproduct{
+  width:200rpx;
+  height:200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+}
+#college_identify{
+  width:200rpx;
+  height:200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+}
+#codecontainer{
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.26);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+#codebox{
+  height: 90%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: white;
+  margin-top: 20rpx;
+}
+#img{
+  height: 90%;
+  width:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#img image{
+  height: 95%;
+  width:95%;
+}
+#button{
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+#button button{
+  width:50%;
+  border-bottom: none;
+  border-radius: 0;
+  border-top: 1rpx solid gainsboro;
+}

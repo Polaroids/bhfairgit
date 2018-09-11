@@ -1,0 +1,19 @@
+<!--pages/mystore/mystore.wxml-->
+<view id='container'>
+  <view id='title'>我的发布</view>
+  <scroll-view id='scroll' style='height:{{srollHeight}}' scroll-y>
+    <view wx:for='{{items}}' class='item' wx:for-index='index' bindtap='enter' data-index='{{index}}'>
+      <view class='img'>
+        <image src='{{item.photos[0]}}' style='height:80%;width:80%;'/>
+      </view> 
+      <view  class='info'>
+        <view class='header'>
+          <view class='pname'>{{item.pname}}</view>
+          <view class='cancellike' catchtap='del_product' data-index='{{index}}'><image src='/images/like.png' style='height:60rpx;width:60rpx'/></view>
+        </view>
+        <view class='dsp'><text class='tab'>{{item.condition}}成新 | {{item.campus}} <text wx:if="{{item.bargain}}">| 可刀</text>\n</text>{{item.short_dsp}}</view>
+        <view class='price'>{{item.price}}￥</view>
+      </view>     
+    </view>
+  </scroll-view>
+</view>

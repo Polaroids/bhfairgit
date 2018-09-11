@@ -1,0 +1,87 @@
+<scroll-view class='container' scroll-y='true'>
+  <view id='codebox' wx:if='{{showcode}}'>
+  <image src='{{codesrc}}' mode='widthFix' style='width:80%' catchtap='hidecode' catchlongtap='saveimage'/>
+  </view>
+  <view class='block-1'>
+    <swiper indicator-dots="true" class='swiper' duration="500"  circular='true'>
+      <block wx:for="{{item_info.images}}" wx:key="*this">
+        <swiper-item>
+          <image src="{{item}}" id="{{item}}" bindtap='preview' style='height:100%;width:100%;'/>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class='block-2'>    
+    <view class='block-2-1'>
+    <view class='block-2-1-1'>{{item_info.title}}</view>
+    <image class='block-2-1-2' src='/images/mycode.png' bindtap='showcode'/>
+    </view>
+    <view class='block-2-2'>
+    <view class='block-2-2-1'><text class='price'>￥{{item_info.price}}</text></view>
+    <view class='block-2-2-2'><text class='condition'>成色:{{item_info.condition}}成新</text></view>
+    </view>
+    <view class="block-2-3">
+    <view class='block-2-3-1'><text id='text'>可刀:{{item_info.bargain}}</text></view>
+    <view class='block-2-3-2'><text id='text'>数量:{{item_info.amount}}</text></view>
+    <view class='block-2-3-3'><text id='text'>所在校区:{{item_info.campus}}</text></view>
+</view>
+  </view>
+  <view class='block-3'>
+    <scroll-view class='description' scroll-y='true'>
+      <view class='content'>
+        <text decode='true'>&emsp;&emsp;{{item_info.description}}</text>
+      </view>
+    </scroll-view>
+  </view>
+  <view class='block-4'>
+    <button class='button' type='primary'open-type='getUserInfo' form-type='submit' bindgetuserinfo="contact_seller">
+      <view class='contact'>
+        <image src='/images/chat.png' class='icon' mode='aspectFit'></image>
+        <text style='font-size:15px;'>联系卖家</text>
+      </view>
+    </button>
+  </view>
+  <form bindsubmit="formSubmit" report-submit="true">
+  <view class='block-5'>
+    <view class="block-5-1">
+      <input  maxlength="140" bindinput='setmessage' value='{{input}}' placeholder="可在此输入留言" style='text-align:left;' placeholder-style='font-size:35rpx;' cursor-spacing="20"/>
+    </view>
+    <view class='block-5-2'>
+      <button open-type='getUserInfo' form-type='submit' bindgetuserinfo="upload_message"class='message_button'>点击留言</button>
+    </view>
+  </view>
+  <scroll-view class='comments' scroll-y>
+    <view style='display:flex;flex-direction:column-reverse;'>
+      <view class='message' wx:for="{{message}}">
+        <view class='message-1'>
+          <view class='userInfo'>
+            <view class='avatar'>
+              <image class='avatar-image' src='{{item.avatar}}'></image>
+            </view>
+            <view class='message-1-2'>
+              <view><text>{{item.nick_name}}</text></view>
+              <view><text class='time'>{{item.created_at}}</text></view>
+            </view>
+            <view class='seller' wx:if="{{item.created_by == item_info.created_by}}">
+              <image src='/images/seller.png' class='seller-image'></image>
+            </view>
+          </view>
+          <view class='message-1-3'wx:if="{{item.created_by== user_info_id}}" >
+            <text class='reply' data-index="{{index}}" bindtap='del_message'>删除</text>
+          </view>
+        </view>
+        <view class='message-2'>
+          <view><text style='color:grey;' wx:if="{{item.rec_nickname != null && item.rec_nickname != ''}}">@{{item.rec_nickname}}:</text><text>{{item.content}}</text></view>
+        </view>
+        <view class='message-3'>
+          <button class='reply' open-type='getUserInfo' style='width:15%;margin-right:10rpx;background:white;' bindgetuserinfo='reply' form-type='submit' data-message="{{item}}">回复</button>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  </form>
+</scroll-view>
+
+<modal hidden="{{hidden}}" title="请输入留言" confirm-text="确认" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+    <textarea placeholder="@{{rec_nickname}}:" type='hidden' value='{{return_message}}' placeholder-class='color:grey;'bindinput='return_message' style='color:black;line-height: 1.5'></textarea>
+</modal>

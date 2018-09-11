@@ -1,0 +1,18 @@
+<!--pages/navigation/navigation.wxml-->
+<view class='body'>
+  <view class='item_nav_box'>
+    <button class='item_nav' id='type_1' bindtap='selecttype' data-index='0'>
+       <image class='img' src='/images/cloth.jpg' mode='scaleToFill'/>
+    </button>
+    <button class='item_nav'id='type_2' bindtap='selecttype' data-index='1'>
+       <image class='img' src='/images/electronic.jpg' mode='scaleToFill'/>
+    </button>
+    <button class='item_nav'id='type_3' bindtap='selecttype' data-index='2'>
+       <image class='img' src='/images/book.jpg' mode='scaleToFill'/>
+    </button>
+    <button class='item_nav'id='type_4' bindtap='selecttype' data-index='3'>
+      <image class='img' src='/images/food.jpg' mode='scaleToFill'/>
+    </button>
+  </view>
+  <button class='camera'  open-type='getUserInfo'  open-type='getUserInfo' bindgetuserinfo="gotopost" hover-class='hover_camera' >发布</button>
+</view>

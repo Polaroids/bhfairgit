@@ -1,0 +1,36 @@
+/* pages/navigation/navigation.wxss */
+page{
+  height:100%;
+}
+.body{
+  height: 100%;
+  width: 100%;
+}
+.item_nav_box{
+  height: 90%;
+  width: 100%;
+  /* border:1px solid red; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-top: 30rpx;
+}
+.item_nav{
+  /* border: 1px solid red; */
+  height: 330rpx;
+  width: 330rpx;
+  background-size: 330rpx;
+  padding: 0;
+}
+.img{
+  height: 100%;
+  width:100%;
+}
+.camera{
+  background-color: #20c9f9;
+  color: white;
+}
+.hover_camera{
+  background-color: #7ddfff;
+}

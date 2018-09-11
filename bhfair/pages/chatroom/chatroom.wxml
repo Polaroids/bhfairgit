@@ -1,0 +1,42 @@
+<view class='container'>
+  <view id='name'>{{his_nick}}</view>
+  <scroll-view id='chatbox' scroll-y>
+    <view class='msg_wrap' wx:for='{{msgs}}' style='width:100%;'>
+      <view wx:if='{{item.id==my_id}}' class='box' style='flex-direction:row-reverse;'>
+        <view class='avatar'>
+          <image src='{{item.avatar}}' style='width:60px;height:60px'/>
+        </view>  
+        <view class='noavatar'>
+          <view class='time_content' style='align-items: flex-end'>
+            <view class='time' style='margin-right:10px'>{{item.time}}</view>
+            <view class='bub' style='border-radius: 10px 0 10px 10px;margin-right:10px'>
+              <view class='content' style='padding:6px;'><text style='font-size:20px;'>{{item.content}}</text></view>
+            </view>
+          </view>
+        </view>   
+      </view>
+
+      <view wx:else class='box' style='flex-direction:row;'>
+        <view class='avatar'>
+          <image src='{{item.avatar}}' style='width:60px;height:60px'/>
+        </view>  
+        <view class='noavatar'>
+          <view class='time_content' style='align-items: flex-start'>
+            <view class='time' style='margin-left:10px'>{{item.time}}</view>
+            <view class='bub'  style='border-radius: 0 10px 10px 10px;margin-left:10px;'>
+              <view class='content' style='padding:6px;'><text style='font-size:20px;'>{{item.content}}</text></view>
+            </view>
+          </view>
+        </view>   
+      </view>
+    </view>
+  </scroll-view>
+  <view id='chattool'>
+    <view id='kb'>
+      <button plain='true' bindtap='getfocus'><image src='/images/kb.png' style='height:100%;width:100%;' mode=''/></button>
+    </view>
+    <view id='input'>
+      <input  type='text' focus='{{focus}}' confirm-type='send' confirm-hold='true' adjust-position='true' placeholder='在这里输入聊天内容~' style='height:100%;' bindconfirm='sendmsg' value="{{input}}"/>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,31 @@
+<!--index.wxml-->
+<form bindsubmit="formSubmit" report-submit="true">
+<view class='container'>
+  <view class='userinfo'>
+    <view class='avatar'>
+      <button open-type='getUserInfo' form-type='submit' bindgetuserinfo="authorize"><image src='{{avatarUrl}}'/></button>
+    </view>
+    <view class='nick'>昵称：{{nickName}}</view>
+  </view>
+  <view class='functions'>
+    <view id='mystore' bindtap='gotomystore'><image src='/images/likelist.png' style='height:150rpx;width:150rpx'/>我的收藏</view>
+    <view id='mycode' bindtap='showcode'><image src='/images/mycode.png' style='height:150rpx;width:150rpx'/>我的收款码</view>
+    <view id='myproduct' bindtap='gotomyproduct'><image src='/images/myproduct.png' style='height:150rpx;width:150rpx'/>我的发布</view>
+    <view id='college_identify'><image src='/images/student.png' style='height:150rpx;width:150rpx'/>校园认证</view>
+  </view>
+
+  <view id='codecontainer' wx:if='{{showcode}}'>
+    <view id='codebox'>
+      <view id='img' >
+        <image src='{{codesrc}}' mode='aspectFit' wx:if="{{codesrc!=''}}"/>
+         <view wx:if="{{codesrc==''}}">上传收款码吧~</view>
+      </view>
+     
+      <view id='button'>
+        <button form-type='submit' id='ok' catchtap='confirm' plain='true' style='border-left:none;border-right: 1rpx solid gainsboro;'>确定</button>
+        <button form-type='submit' id='set' catchtap='setcode' plain='true' style='border-right:none;border-left: 1rpx solid gainsboro;'>设置</button>
+      </view>
+    </view>
+  </view>
+</view>
+</form>
