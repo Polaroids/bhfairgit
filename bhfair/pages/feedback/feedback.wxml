@@ -1,0 +1,9 @@
+<view class='container'>
+  <view class='content'>
+    <text>反馈内容：</text>
+    <form bindsubmit='send'>
+      <view style='padding:5px;background-color:white;border-radius:15rpx;margin-top:10rpx;margin-bottom:10rpx;'><textarea name='content' placeholder='反馈会发到我们的邮箱，我们会根据您的建议进行改进~' style='width:100%;' bindblur='gettext'></textarea></view>
+      <button form-type='submit'>提交</button>
+    </form>
+  </view>
+</view>

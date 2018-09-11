@@ -44,9 +44,10 @@ page{
   height: 60%;
   width:100%;
   margin-top:20rpx;
+  flex-wrap: wrap;
 }
-#mystore{
-  width:200rpx;
+.functions view{
+  width:185rpx;
   height:200rpx;
   display: flex;
   flex-direction: column;
@@ -54,34 +55,7 @@ page{
   align-items: center;
   font-size: 30rpx;
 }
-#mycode{
-   width:200rpx;
-  height:200rpx;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 30rpx;
-}
-#myproduct{
-  width:200rpx;
-  height:200rpx;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 30rpx;
-}
-#college_identify{
-  width:200rpx;
-  height:200rpx;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 30rpx;
-}
-#codecontainer{
+.subcontainer{
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.26);
@@ -121,4 +95,13 @@ page{
   border-bottom: none;
   border-radius: 0;
   border-top: 1rpx solid gainsboro;
+}
+#helpbox{
+  height: 90%;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10rpx;
+  margin-top: 20rpx;
 }

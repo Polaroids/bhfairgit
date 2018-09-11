@@ -7,8 +7,25 @@ Page({
     avatarUrl: null,
     nickName: null,
     showcode:false,
+    showhelp:false,
     codesrc: "",
     form_id:null,
+  },
+  //去反馈
+  feedback:function(){
+    var self = this
+    if (!app.globalData.hasuserinfo) {//如果用户没登录
+      wx.showModal({
+        title: '',
+        content: '请点击头像登录',
+        showCancel: false
+      })
+    }
+    else {
+      wx.navigateTo({
+        url: '/pages/feedback/feedback',
+      })
+    }
   },
   //去收藏夹
   gotomystore:function(e){
@@ -78,7 +95,7 @@ Page({
     })
   },
   formSubmit: function (e) {
-    if(app.globalData.userInfo.openid!=""){
+    if (app.globalData.userInfo.openid != "" && e.detail.formId !="the formId is a mock one"){
       this.setData({
         form_id: e.detail.formId,
       })
@@ -101,7 +118,18 @@ Page({
       })
     }
   },
-
+  //显示帮助
+  showhelp:function(){
+    this.setData({
+      showhelp: true
+    })
+  },
+  //隐藏帮助
+  hidehelp:function(){
+    this.setData({
+      showhelp: false
+    })
+  },
   //显示收款码
   showcode:function(){
     var self = this

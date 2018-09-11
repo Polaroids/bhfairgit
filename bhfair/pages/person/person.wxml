@@ -12,9 +12,11 @@
     <view id='mycode' bindtap='showcode'><image src='/images/mycode.png' style='height:150rpx;width:150rpx'/>我的收款码</view>
     <view id='myproduct' bindtap='gotomyproduct'><image src='/images/myproduct.png' style='height:150rpx;width:150rpx'/>我的发布</view>
     <view id='college_identify'><image src='/images/student.png' style='height:150rpx;width:150rpx'/>校园认证</view>
+    <view id='help' bindtap='showhelp'><image src='/images/help.png' style='height:150rpx;width:150rpx'/>帮助</view>
+    <view id='feedback' bindtap='feedback'><image src='/images/feedback.png' style='height:150rpx;width:150rpx'/>反馈</view>
   </view>
 
-  <view id='codecontainer' wx:if='{{showcode}}'>
+  <view class='subcontainer' wx:if='{{showcode}}'>
     <view id='codebox'>
       <view id='img' >
         <image src='{{codesrc}}' mode='aspectFit' wx:if="{{codesrc!=''}}"/>
@@ -25,6 +27,24 @@
         <button form-type='submit' id='ok' catchtap='confirm' plain='true' style='border-left:none;border-right: 1rpx solid gainsboro;'>确定</button>
         <button form-type='submit' id='set' catchtap='setcode' plain='true' style='border-right:none;border-left: 1rpx solid gainsboro;'>设置</button>
       </view>
+    </view>
+  </view>
+
+  <view class='subcontainer' wx:if='{{showhelp}}' >
+    <view id='helpbox'>
+      <view style='height:90%;display:flex;justify-content:center;align-items:center;'>
+        <scroll-view style='width:95%;height:95%;' scroll-y>
+          <text>1.没有登陆的用户只能浏览物品，发布、留言等功能均需登陆以后才能操作，您可点击个人页面头像进行登陆，使用部分功能时可以快捷登陆。
+
+          2.留言的内容会自动以服务通知的形式推送给接收者。
+
+          3.在物品列表页您可点击“···”进行收藏，在‘我的收藏’页中，您可点击同样的按钮删除收藏，在‘我的发布’页中，您可点击同样的按钮下架您的商品，下架的商品不会出现在物品列表页中。
+
+          4.您可在个人页面‘我的二维码’中设置自己的收款码，建议将微信收款码下载到本地后上传，卖家收款码可以通过点击物品详细页的二维码图标显示。
+        </text>
+        </scroll-view>
+      </view>
+      <view style='height:10%'><button  bindtap='hidehelp' style='height:100%;'>确定</button></view>
     </view>
   </view>
 </view>

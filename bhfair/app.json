@@ -7,8 +7,8 @@
     "pages/item_list/item_list",
     "pages/postproduct/postproduct",
     "pages/myproduct/myproduct",
-    "pages/person/person",
-    "pages/logs/logs"
+    "pages/feedback/feedback",
+    "pages/person/person"
   ],
   "window":{
     "backgroundTextStyle": "light",
