@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    types:['鞋包服饰','电子设备','图书','食品'],
+    types:['衣服物品','电子设备','图书','食品','活动招募','其他'],
     campus:["学院路","沙河"],
     condition:[1,2,3,4,5,6,7,8,9,10],
     width: app.globalData.windowWidth - 140,

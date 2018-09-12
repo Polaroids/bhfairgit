@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    items: [{ name: '鞋包服饰'},{ name: '电子设备'},{ name: '图书'},{ name: '食品'}]
+    items: [{ name: '衣服物品' }, { name: '电子设备' }, { name: '图书' }, { name: '食品' }, { name: '活动招募' }, { name: '其他' }],
+    imgUrls:['/images/food.jpg','/images/cloth.jpg']
   },
   //选择类别，导航到相应页面
   selecttype:function(e){
