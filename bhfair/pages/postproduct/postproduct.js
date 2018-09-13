@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    types:['衣服物品','电子设备','图书','食品','活动招募','其他'],
+    types:['鞋包服饰','电子设备','图书','食品'],
     campus:["学院路","沙河"],
     condition:[1,2,3,4,5,6,7,8,9,10],
     width: app.globalData.windowWidth - 140,
@@ -167,7 +167,6 @@ Page({
 
     for (var i = 0; i < item.imgs.length; i++) {
       filepath.filePath = item.imgs[i]
-      console.log('1',filepath)
       myfile.upload(filepath).then(res => {
         item_info.photos.push(res.data.path)//获得图片的云地址
         if (item_info.photos.length == item.imgs.length) {
@@ -212,9 +211,15 @@ Page({
   check:function(e){
     var item=this.data
     var self=this
-  
-    if (item.item_title != "" && item.types.indexOf(item.item_type) != -1 && item.item_price &&item.imgs)
+    if (item.item_title != "" && item.types.indexOf(item.item_type) != -1 && item.item_price != null && item.imgs && item.item_price !="")
       self.submit_handler(e)
+    else if (item.item_amount == 0) {
+      wx.showModal({
+        title: '',
+        content: '商品数量不能为0',
+        showCancel: false
+      })
+    }
     else{
       wx.showModal({
         title: '',
@@ -241,24 +246,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let myuser = new wx.BaaS.User()
-    let userid = app.globalData.userInfo.id
-    myuser.get(userid).then(res => {
-      //查询用户是否已设置收款码
-      if (!res.data.code){
-        wx.showModal({
-          title: '',
-          content: '您还未设置收款码，确认继续发布吗？',
-          success:function(res){
-            if(res.cancel){
-              wx.navigateBack({
-                delta: 1
-              })
-            }
-          }
-        })
-      }
-    })
+  
   },
 
   /**

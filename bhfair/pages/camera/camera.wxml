@@ -1,0 +1,10 @@
+<!--pages/camera/camera.wxml-->
+<camera mode='normal' style='height:100%;width:100%;' flash='off' device-position='back' id='camera'>
+  <cover-view class='container'>
+    <cover-view class='button_box'>
+      <button class='flash' hover-class='hover_flash' bindtap='takephoto'>
+        <cover-image src='/images/camera.png'/>
+      </button>
+    </cover-view>
+  </cover-view>
+</camera>

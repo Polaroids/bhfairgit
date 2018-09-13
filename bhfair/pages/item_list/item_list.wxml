@@ -2,7 +2,7 @@
 <view class='container'>
   <view id='title'>{{name}}</view>
   <scroll-view id='item_list' scroll-y bindscrolltolower='loadmore'>
-    <view class='item' wx:for='{{item_info}}' wx:for-item="item" wx:for-index='index' bindtap='enter' data-id='{{item.id}}'>
+    <view class='item' wx:for='{{item_info}}' wx:for-item="item" wx:for-index='index' bindtap='enter' data-index='{{index}}'>
       <view class='item_box'>
         <view class='img'><image src='{{item.photos[0]}}' style='height:80%;width:80%;'/></view>
         <view class='info'>

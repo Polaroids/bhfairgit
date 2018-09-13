@@ -83,5 +83,5 @@
 </scroll-view>
 
 <modal hidden="{{hidden}}" title="请输入留言" confirm-text="确认" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
-    <textarea placeholder="@{{rec_nickname}}:" type='hidden' value='{{return_message}}' placeholder-class='color:grey;'bindinput='return_message' style='color:black;line-height: 1.5;width:100%'></textarea>
+    <textarea placeholder="@{{rec_nickname}}:" type='hidden' value='{{return_message}}' placeholder-class='color:grey;'bindinput='return_message' style='color:black;line-height: 1.5;width:100%;'></textarea>
 </modal>

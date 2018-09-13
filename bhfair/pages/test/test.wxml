@@ -1,0 +1,6 @@
+<view class='page'>
+  <view class='container'>
+    <view><input style='border:1px solid black'></input></view>
+    <view><button type='primary' class='button'></button></view>
+  </view>
+</view>

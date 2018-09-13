@@ -11,8 +11,16 @@ Page({
   },
   //进入详细页
   enter:function(e){
+    var self=this
+    var id=e.currentTarget.dataset.index
     wx.navigateTo({
-      url: "/pages/item/item?id="+e.currentTarget.dataset.id,
+      url: "/pages/item/item?id="+self.data.item_info[id].id,
+      success: function () {
+        console.log('success')
+      },
+      fail: function () {
+        console.log('fail')
+      }
     })
   },
   /**

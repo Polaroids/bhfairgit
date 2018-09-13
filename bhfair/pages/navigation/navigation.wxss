@@ -7,7 +7,7 @@ page{
   width: 100%;
 }
 .item_nav_box{
-  /* height: 60%; */
+  height: 90%;
   width: 100%;
   /* border:1px solid red; */
   display: flex;
@@ -18,11 +18,10 @@ page{
 }
 .item_nav{
   /* border: 1px solid red; */
-  height: 230rpx;
-  width: 230rpx;
-  background-size: 230rpx;
+  height: 330rpx;
+  width: 330rpx;
+  background-size: 330rpx;
   padding: 0;
-  margin-bottom: 20rpx;
 }
 .img{
   height: 100%;
@@ -31,7 +30,6 @@ page{
 .camera{
   background-color: #20c9f9;
   color: white;
-  width:100%;
 }
 .hover_camera{
   background-color: #7ddfff;

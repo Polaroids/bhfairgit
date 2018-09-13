@@ -1,33 +1,18 @@
 <!--pages/navigation/navigation.wxml-->
 <view class='body'>
-  <swiper indicator-dots='true' autoplay='true' interval='3000' circular='true' style='height:40%'>
-    <block wx:for="{{items}}">
-      <swiper-item>
-        <image src="{{item.imageUrl}}" class="slide-image" style='height:100%;width:100%;' mode='aspectFill' bindtap='enter' data-id='{{item.id}}'/>
-      </swiper-item>
-    </block>
-  </swiper>
-  <view style='height:60%;display:flex;flex-direction:column;justify-content: space-between;'>
-    <view class='item_nav_box'>
-      <button class='item_nav' id='type_1' bindtap='selecttype' data-index='0'>
-        <image class='img' src='/images/cloth.jpg' mode='scaleToFill'/>
-      </button>
-      <button class='item_nav'id='type_2' bindtap='selecttype' data-index='1'>
-        <image class='img' src='/images/electronic.jpg' mode='scaleToFill'/>
-      </button>
-      <button class='item_nav'id='type_3' bindtap='selecttype' data-index='2'>
-        <image class='img' src='/images/book.jpg' mode='scaleToFill'/>
-      </button>
-      <button class='item_nav'id='type_4' bindtap='selecttype' data-index='3'>
-        <image class='img' src='/images/food.jpg' mode='scaleToFill'/>
-      </button>
-      <button class='item_nav'id='type_5' bindtap='selecttype' data-index='4'>
-        <image class='img' src='/images/activity.jpg' mode='scaleToFill'/>
-      </button>
-      <button class='item_nav'id='type_6' bindtap='selecttype' data-index='5'>
-        <image class='img' src='/images/other.jpg' mode='scaleToFill'/>
-      </button>
-    </view>
-  <button class='camera'  open-type='getUserInfo'  open-type='getUserInfo' bindgetuserinfo="gotopost" hover-class='hover_camera' >发布</button>
+  <view class='item_nav_box'>
+    <button class='item_nav' id='type_1' bindtap='selecttype' data-index='0'>
+       <image class='img' src='/images/cloth.jpg' mode='scaleToFill'/>
+    </button>
+    <button class='item_nav'id='type_2' bindtap='selecttype' data-index='1'>
+       <image class='img' src='/images/electronic.jpg' mode='scaleToFill'/>
+    </button>
+    <button class='item_nav'id='type_3' bindtap='selecttype' data-index='2'>
+       <image class='img' src='/images/book.jpg' mode='scaleToFill'/>
+    </button>
+    <button class='item_nav'id='type_4' bindtap='selecttype' data-index='3'>
+      <image class='img' src='/images/food.jpg' mode='scaleToFill'/>
+    </button>
   </view>
+  <button class='camera'  open-type='getUserInfo'  open-type='getUserInfo' bindgetuserinfo="gotopost" hover-class='hover_camera' >发布</button>
 </view>

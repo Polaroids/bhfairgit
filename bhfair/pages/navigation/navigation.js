@@ -5,26 +5,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    types: [{ name: '衣服物品' }, { name: '电子设备' }, { name: '图书' }, { name: '食品' }, { name: '活动招募' }, { name: '其他' }],
-    items:[]
+    items: [{ name: '鞋包服饰'},{ name: '电子设备'},{ name: '图书'},{ name: '食品'}]
   },
   //选择类别，导航到相应页面
   selecttype:function(e){
    var id=e.target.dataset.index  //类别序号
-   var item_url='/pages/item_list/item_list?name='+this.data.types[id].name
-   console.log(item_url)
+   var item_url='/pages/item_list/item_list?name='+this.data.items[id].name
+   
    wx.navigateTo({
      url: item_url,
      fail:function(){
        console.log('fail to ',item_url,err)
      }
    })
-  },
-  //进入详细页面
-  enter:function(e){
-    wx.navigateTo({
-      url: "/pages/item/item?id=" + e.target.dataset.id,
-    })
   },
   //去发布
   gotopost:function(e){
@@ -84,23 +77,40 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //从数据库读取最新商品信息
-    var self = this
-    let tableID = app.globalData.product_tableID  //商品列表,id+imageUrl
-    let tableobject = new wx.BaaS.TableObject(tableID)
-    tableobject.orderBy('-updated_at').limit(4).find().then(res=>{
-      let tempitems=self.data.items
-      for(var i=0;i<res.data.objects.length;i++){
-        let temp = {
-          id: res.data.objects[i].id,
-          imageUrl: res.data.objects[i].photos[0]
-        }
-        tempitems.push(temp)
-      }
-      self.setData({
-        items:tempitems
-      })
-    })
+    // wx.connectSocket({
+    //   url: 'wss://140.143.14.239:3000',
+    //   data: {send_id:"1041165394"},
+    //   method: 'GET',
+    //   success: function (res) {
+    //     console.log(res)
+    //     console.log("connectSocket 成功")
+    //   },
+    //   fail: function (res) {
+    //     console.log(res)
+    //     console.log("connectSocket 失败")
+    //   }
+    // })
+    // wx.onSocketOpen(function () {
+    //   // callback
+    //   var mCmd = { "cmd": "connect.Connect", "data": {} }
+    //   wx.sendSocketMessage({
+    //     data: JSON.stringify(mCmd),
+    //     success: function (res) {
+    //       console.log(res)
+    //       console.log("sendSocketMessage 成功")
+    //     },
+    //     fail: function (res) {
+    //       console.log(res)
+    //       console.log("sendSocketMessage 失败")
+    //     }
+    //   });
+
+    //   wx.onSocketMessage(function (data) {
+    //     console.log("onSocketMessage ", data)
+    //   })
+    // })
+
+
   },
 
   /**

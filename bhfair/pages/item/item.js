@@ -174,25 +174,26 @@ Page({
     let self = this
     let myuser = new wx.BaaS.User()
     myuser.get(userID).then(res => {
-      if (res.data.code){
-        self.setData({
-          codesrc: res.data.code
-        })
-      }
-      else{
-        self.setData({
-          codesrc: "/images/nocode.jpg"
-        })
-      }
+      self.setData({
+        codesrc: res.data.code
+      })
     }, err => {
       console.log('查询收款码失败', err)
     })
   },
   //显示二维码
   showcode: function () {
+    if(this.data.codersrc!=undefined){
     this.setData({
       showcode: true
-    })
+    })}
+    else{
+      wx.showToast({
+        title: '卖家尚未上传收款码',
+        icon: 'none',
+        duration: 2000,
+      })
+    }
   },
   hidecode: function () {
     this.setData({
@@ -284,41 +285,41 @@ Page({
 
         console.log("开始发送推送")     
         var id = this.data.receiver
-        let access_token_table_ID = 50924
-        let query_access = new wx.BaaS.Query()
-        query_access.compare('created_by', '=', 67820503)
-        let message = new wx.BaaS.TableObject(access_token_table_ID)
-        message.setQuery(query_access).find().then(data => {
-          this.setData({
-            access_token: data.data.objects[0].access_token,
-          })
-          this.service_info({
-            id: id,
-            product_id: this.data.item_info.id,
-            template_id: this.data.reply_template_id,
-            content: this.data.message[this.data.message.length - 1].content,
-            nick_name: this.data.message[this.data.message.length - 1].nick_name
-          })//被回复者
+        if(id != app.globalData.userInfo.id){
+          let access_token_table_ID = 50924
+          let query_access = new wx.BaaS.Query()
+          query_access.compare('created_by', '=', 67820503)
+          let message = new wx.BaaS.TableObject(access_token_table_ID)
+          message.setQuery(query_access).find().then(data => {
+            this.setData({
+              access_token: data.data.objects[0].access_token,
+            })
+            this.service_info({
+              id: id,
+              template_id: this.data.reply_template_id,
+              content: this.data.message[this.data.message.length - 1].content,
+              nick_name: this.data.message[this.data.message.length - 1].nick_name
+            })//被回复者
+            console.log("access_token:", this.data.access_token)
+          }, error => {
+          });// 获取access_token
           console.log("access_token:", this.data.access_token)
-        }, error => {
-        });// 获取access_token
-        console.log("access_token:", this.data.access_token)
-        console.log("刷新data中")
-        this.setData({
-          'this.data.message': this.data.message,
-          return_message: "",
-          rec_nickname: "",
-          receiver: 0,
+          console.log("刷新data中")
+          this.setData({
+            'this.data.message': this.data.message,
+            return_message: "",
+            rec_nickname: "",
+            receiver: 0,
+          })}
+        }, err => {
+          console.log("上传失败")
+          wx.hideLoading()
+          wx.showToast({
+            title: '留言失败',
+            icon: 'fail',
+            duration: 2000
+          })
         })
-      }, err => {
-        console.log("上传失败")
-        wx.hideLoading()
-        wx.showToast({
-          title: '留言失败',
-          icon: 'fail',
-          duration: 2000
-        })
-      })
     }
   },
 
@@ -340,65 +341,60 @@ Page({
   },
 
   service_info:function(event){
-    //需传入id,product_id,template_id,content,nick_name
-    console.log('e is', event, this.data.item_info.id)
+    //需要传入template_id （e.openid，e.template_id）id
+    //查询form_id,openid
+    var self = this
+    console.log("传入模板消息的数据为:",event)
+    var access_token = this.data.access_token
 
-    // wx.BaaS.invokeFunction('sendmsg',event).then(res=>{
-    //   console.log('res is',res)
-    // })
-    // var self = this
-    // console.log("传入模板消息的数据为:",event)
-    // var access_token = this.data.access_token
+    let table_id = 50899
+    let query = new wx.BaaS.Query()
+    query.compare('created_by', '=', event.id)
+    let message = new wx.BaaS.TableObject(table_id)
+    var handler = function(data, rty) {
+      console.log("formid list:", data)
+      let recordID = data.data.objects["0"].id
+      var form_id = data.data.objects["0"].formId
+      var openid = data.data.objects["0"].openid
 
-    // let table_id = 50899  //formid
-    // let query = new wx.BaaS.Query()
-    // query.compare('created_by', '=', event.id)
-    // let message = new wx.BaaS.TableObject(table_id)
-    // var handler = function(data, rty) {
-    //   console.log("formid list:", data)
-    //   let recordID = data.data.objects["0"].id
-    //   var form_id = data.data.objects["0"].formId
-    //   var openid = data.data.objects["0"].openid
+      wx.request({
+        method: "POST",
+        url: 'https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=' + access_token,
+        data: {
+          "template_id": event.template_id,
+          "touser": openid,
+          "form_id": form_id,
+          "page": "/pages/item/item?id=" + self.data.item_info.id,    //跳转的商品链接
+          "data": {
+            "keyword1": {
+              "value": event.content
+            },
+            "keyword2": {
+              "value": event.nick_name
+            }
+          }
+        },
+        success: function (res) {
+          console.log("access_token:", self.data.access_token)
+          console.log("send message successfully:", res)
+          if (res.data.errmsg != "ok" && rty == undefined) {
+            setTimeout(handler, 1000, data, 1)
+          }
+        },
+        fail: function (err) {
+          console.log("fail to send message:", err)
+        }
+      })//发送模板消息
+      message.delete(recordID).then(res => {
+        console.log("成功删除id：", recordID)
+        console.log(res)
+      }, err => {
+        console.log("删除id：", recordID, "失败")
+        console.log(err)
+      })
 
-    //   wx.request({
-    //     method: "POST",
-    //     url: 'https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=' + access_token,
-    //     data: {
-    //       "template_id": event.template_id,
-    //       "touser": openid,
-    //       "form_id": form_id,
-    //       "page": "/pages/item/item?id=" + self.data.item_info.id,    //跳转的商品链接
-    //       "data": {
-    //         "keyword1": {
-    //           "value": event.content
-    //         },
-    //         "keyword2": {
-    //           "value": event.nick_name
-    //         }
-    //       }
-    //     },
-    //     success: function (res) {
-    //       console.log("access_token:", self.data.access_token)
-    //       console.log("send message successfully:", res)
-    //       if (res.data.errmsg != "ok" && rty == undefined) {
-    //         setTimeout(handler, 1000, data, 1)
-    //       }
-    //     },
-    //     fail: function (err) {
-    //       console.log("fail to send message:", err)
-    //     }
-    //   })//发送模板消息
-
-    //   message.delete(recordID).then(res => {
-    //     console.log("成功删除id：", recordID)
-    //     console.log(res)
-    //   }, err => {
-    //     console.log("删除id：", recordID, "失败")
-    //     console.log(err)
-    //   })
-
-    // }
-    // message.setQuery(query).find().then(handler);//form_id
+    }
+    message.setQuery(query).find().then(handler);//form_id
   },//发送推送
 
   //获取当前时间戳
@@ -461,7 +457,6 @@ Page({
           })
           this.service_info({
             id: this.data.item_info.created_by,
-            product_id: this.data.item_info.id,
             template_id:this.data.message_template_id,
             content: this.data.message[this.data.message.length - 1].content,
             nick_name: this.data.message[this.data.message.length - 1].nick_name
@@ -470,6 +465,10 @@ Page({
         }, error => {
         });// 获取access_token
         
+        
+        
+
+
         this.data.message[this.data.message.length - 1].id = res.data.id
         this.setData({
           'this.data.message':this.data.message,

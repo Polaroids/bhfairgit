@@ -10,7 +10,7 @@ App({
       wx.requestPayment)
 
     wx.BaaS.init('68168971994515bca615')
-
+     
     //获取屏幕的宽高
     wx.getSystemInfo({
       success: function(res) {

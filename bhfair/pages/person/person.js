@@ -198,6 +198,7 @@ Page({
         avatarUrl: app.globalData.userInfo.avatarUrl,
         nickName: app.globalData.userInfo.nickName   
       })
+      console.log("success");
     }, res => {
       // **res 有两种情况**：用户拒绝授权，res 包含基本用户信息：id、openid、unionid；其他类型的错误，如网络断开、请求超时等，将返回 Error 对象（详情见下方注解）
       console.log("failure");
