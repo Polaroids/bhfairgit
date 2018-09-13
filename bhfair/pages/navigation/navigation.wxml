@@ -1,11 +1,11 @@
 <!--pages/navigation/navigation.wxml-->
 <view class='body'>
   <swiper indicator-dots='true' autoplay='true' interval='3000' circular='true' style='height:40%'>
-    <block wx:for="{{imgUrls}}">
-    <swiper-item>
-      <image src="{{item}}" class="slide-image" style='height:100%;width:100%;'/>
-    </swiper-item>
-  </block>
+    <block wx:for="{{items}}">
+      <swiper-item>
+        <image src="{{item.imageUrl}}" class="slide-image" style='height:100%;width:100%;' mode='aspectFill' bindtap='enter' data-id='{{item.id}}'/>
+      </swiper-item>
+    </block>
   </swiper>
   <view style='height:60%;display:flex;flex-direction:column;justify-content: space-between;'>
     <view class='item_nav_box'>

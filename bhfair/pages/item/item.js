@@ -174,9 +174,16 @@ Page({
     let self = this
     let myuser = new wx.BaaS.User()
     myuser.get(userID).then(res => {
-      self.setData({
-        codesrc: res.data.code
-      })
+      if (res.data.code){
+        self.setData({
+          codesrc: res.data.code
+        })
+      }
+      else{
+        self.setData({
+          codesrc: "/images/nocode.jpg"
+        })
+      }
     }, err => {
       console.log('查询收款码失败', err)
     })
@@ -287,6 +294,7 @@ Page({
           })
           this.service_info({
             id: id,
+            product_id: this.data.item_info.id,
             template_id: this.data.reply_template_id,
             content: this.data.message[this.data.message.length - 1].content,
             nick_name: this.data.message[this.data.message.length - 1].nick_name
@@ -332,60 +340,65 @@ Page({
   },
 
   service_info:function(event){
-    //需要传入template_id （e.openid，e.template_id）id
-    //查询form_id,openid
-    var self = this
-    console.log("传入模板消息的数据为:",event)
-    var access_token = this.data.access_token
+    //需传入id,product_id,template_id,content,nick_name
+    console.log('e is', event, this.data.item_info.id)
 
-    let table_id = 50899
-    let query = new wx.BaaS.Query()
-    query.compare('created_by', '=', event.id)
-    let message = new wx.BaaS.TableObject(table_id)
-    var handler = function(data, rty) {
-      console.log("formid list:", data)
-      let recordID = data.data.objects["0"].id
-      var form_id = data.data.objects["0"].formId
-      var openid = data.data.objects["0"].openid
+    // wx.BaaS.invokeFunction('sendmsg',event).then(res=>{
+    //   console.log('res is',res)
+    // })
+    // var self = this
+    // console.log("传入模板消息的数据为:",event)
+    // var access_token = this.data.access_token
 
-      wx.request({
-        method: "POST",
-        url: 'https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=' + access_token,
-        data: {
-          "template_id": event.template_id,
-          "touser": openid,
-          "form_id": form_id,
-          "page": "/pages/item/item?id=" + self.data.item_info.id,    //跳转的商品链接
-          "data": {
-            "keyword1": {
-              "value": event.content
-            },
-            "keyword2": {
-              "value": event.nick_name
-            }
-          }
-        },
-        success: function (res) {
-          console.log("access_token:", self.data.access_token)
-          console.log("send message successfully:", res)
-          if (res.data.errmsg != "ok" && rty == undefined) {
-            setTimeout(handler, 1000, data, 1)
-          }
-        },
-        fail: function (err) {
-          console.log("fail to send message:", err)
-        }
-      })//发送模板消息
-      message.delete(recordID).then(res => {
-        console.log("成功删除id：", recordID)
-        console.log(res)
-      }, err => {
-        console.log("删除id：", recordID, "失败")
-        console.log(err)
-      })
+    // let table_id = 50899  //formid
+    // let query = new wx.BaaS.Query()
+    // query.compare('created_by', '=', event.id)
+    // let message = new wx.BaaS.TableObject(table_id)
+    // var handler = function(data, rty) {
+    //   console.log("formid list:", data)
+    //   let recordID = data.data.objects["0"].id
+    //   var form_id = data.data.objects["0"].formId
+    //   var openid = data.data.objects["0"].openid
 
-    }
-    message.setQuery(query).find().then(handler);//form_id
+    //   wx.request({
+    //     method: "POST",
+    //     url: 'https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=' + access_token,
+    //     data: {
+    //       "template_id": event.template_id,
+    //       "touser": openid,
+    //       "form_id": form_id,
+    //       "page": "/pages/item/item?id=" + self.data.item_info.id,    //跳转的商品链接
+    //       "data": {
+    //         "keyword1": {
+    //           "value": event.content
+    //         },
+    //         "keyword2": {
+    //           "value": event.nick_name
+    //         }
+    //       }
+    //     },
+    //     success: function (res) {
+    //       console.log("access_token:", self.data.access_token)
+    //       console.log("send message successfully:", res)
+    //       if (res.data.errmsg != "ok" && rty == undefined) {
+    //         setTimeout(handler, 1000, data, 1)
+    //       }
+    //     },
+    //     fail: function (err) {
+    //       console.log("fail to send message:", err)
+    //     }
+    //   })//发送模板消息
+
+    //   message.delete(recordID).then(res => {
+    //     console.log("成功删除id：", recordID)
+    //     console.log(res)
+    //   }, err => {
+    //     console.log("删除id：", recordID, "失败")
+    //     console.log(err)
+    //   })
+
+    // }
+    // message.setQuery(query).find().then(handler);//form_id
   },//发送推送
 
   //获取当前时间戳
@@ -448,6 +461,7 @@ Page({
           })
           this.service_info({
             id: this.data.item_info.created_by,
+            product_id: this.data.item_info.id,
             template_id:this.data.message_template_id,
             content: this.data.message[this.data.message.length - 1].content,
             nick_name: this.data.message[this.data.message.length - 1].nick_name
@@ -456,10 +470,6 @@ Page({
         }, error => {
         });// 获取access_token
         
-        
-        
-
-
         this.data.message[this.data.message.length - 1].id = res.data.id
         this.setData({
           'this.data.message':this.data.message,

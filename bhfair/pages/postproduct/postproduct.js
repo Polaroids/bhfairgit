@@ -167,6 +167,7 @@ Page({
 
     for (var i = 0; i < item.imgs.length; i++) {
       filepath.filePath = item.imgs[i]
+      console.log('1',filepath)
       myfile.upload(filepath).then(res => {
         item_info.photos.push(res.data.path)//获得图片的云地址
         if (item_info.photos.length == item.imgs.length) {
@@ -212,7 +213,7 @@ Page({
     var item=this.data
     var self=this
   
-    if (item.item_title != "" && item.types.indexOf(item.item_type) != -1 && item.item_price!=null &&item.imgs)
+    if (item.item_title != "" && item.types.indexOf(item.item_type) != -1 && item.item_price &&item.imgs)
       self.submit_handler(e)
     else{
       wx.showModal({
@@ -240,7 +241,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    let myuser = new wx.BaaS.User()
+    let userid = app.globalData.userInfo.id
+    myuser.get(userid).then(res => {
+      //查询用户是否已设置收款码
+      if (!res.data.code){
+        wx.showModal({
+          title: '',
+          content: '您还未设置收款码，确认继续发布吗？',
+          success:function(res){
+            if(res.cancel){
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          }
+        })
+      }
+    })
   },
 
   /**

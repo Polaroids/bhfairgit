@@ -10,11 +10,12 @@ Page({
   },
   //提交反馈
   send:function(e){
+    
     let data={
       id: app.globalData.userInfo.id,
       content: e.detail.value.content
     }
-
+    if(data.content!=""){
     wx.showLoading({
       title: '正在提交'
     })
@@ -33,6 +34,14 @@ Page({
         duration:2000
       })
     })
+    }
+    else{
+      wx.showToast({
+        title: '反馈不能为空',
+        icon: "none",
+        duration: 2000
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
